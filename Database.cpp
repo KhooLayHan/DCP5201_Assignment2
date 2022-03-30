@@ -154,6 +154,7 @@ public:
     void RemoveAll() { m_Data.clear(); }
     void RemoveUser() { m_Data[0].m_User = std::string(""); }
     void RemoveJob() { m_Data[0].m_Job = std::string(""); }
+    
     void RemoveTransport() 
     { 
         std::cout << m_TransportType << "\n";
@@ -165,8 +166,43 @@ public:
         if (m_TransportType == "Water")
             m_Data[0].m_Transport.emplace<WaterTransport>(""); 
     }
+    
+    void ReplaceUser(const std::string& user)
+    {
+        if (m_Data[0].m_User.GetName() == user)
+            std::cout << "User already exist in job listing!\n";
 
+        m_User.SetName(user);
+        m_Data[0].m_User = m_User;
+    }
+    
+    void ReplaceJob(const std::string& job)
+    {
+        if (m_Data[0].m_Job.GetJob() == job)
+            std::cout << "Job already exist in job listing!\n";
 
+        m_Job.GetJobFromListing(job);
+        m_Data[0].m_Job = m_Job;
+    }
+    
+    void ReplaceTransport(int id)
+    {
+        if (m_TransportType == "Air")
+        {
+            m_AirTransport.GetTransportTypeName(id);
+            m_Data[0].m_Transport = m_AirTransport;
+        }
+        else if (m_TransportType == "Land")
+        {
+            m_LandTransport.GetTransportTypeName(id);
+            m_Data[0].m_Transport = m_LandTransport;
+        }
+        else
+        {
+            m_WaterTransport.GetTransportTypeName(id);
+            m_Data[0].m_Transport = m_WaterTransport;
+        }
+    }
 
     void Print()
     {
