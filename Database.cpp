@@ -34,11 +34,6 @@ public:
     {
         if (!m_Data.empty())
             m_Data.clear();
-
-        std::cout << "\n\t   JOBS MANAGEMENT SYSTEM\n";
-        DisplayLines('-', 51);                          
-        std::cout << "| ID | Usernames |     Jobs     |  Transportation |\n";
-        DisplayLines('-', 51);
     };
 
     // Database(const User& user, const std::string& job, const AirTransport& air_transport)
@@ -162,6 +157,8 @@ public:
     
     const void RemoveTransport() 
     { 
+        std::cout << m_TransportType << "\n";
+
         if (m_TransportType == "Air")
             m_Data[0].m_Transport.emplace<AirTransport>(""); 
         if (m_TransportType == "Land")
@@ -196,14 +193,6 @@ public:
     //         //return false;
     //     }
     // }
-
-    // void AddUserListing()
-    // {
-    //     //auto transport = air_transport.GetTransportTypeName();
-
-    //     m_UserListing.push_back({ m_ID, m_Name, m_Job,  });
-    // }
-
 
     //const std::string& GetUser() const { return m_Data[0].m_User.GetName(); }
     const void GetUserAtID(int id = 0) const { std::cout << m_Data[id].m_User.GetName(); }
