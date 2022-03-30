@@ -30,6 +30,7 @@ class Database
 public:
     Database() 
     {
+        std::cout << "Database Constructor\n";
         if (!m_Data.empty())
             m_Data.clear();
     };
@@ -86,7 +87,7 @@ public:
 
     ~Database() 
     {
-        //std::cout << "Database Destructor\n"; 
+        std::cout << "Database Destructor\n"; 
     }
 
     void AddAirData(const std::string& user, const std::string& job, int air_id)
@@ -232,30 +233,10 @@ public:
     //     }
     // }
 
-    //const std::string& GetUser() const { return m_Data[0].m_User.GetName(); }
-    const void GetUserAtID(int id = 0) const { std::cout << m_Data[id].m_User.GetName(); }
-
-    //const Job& GetJobListing() { return m_Job.JobsListing(1); }
-    const void GetJobAtID(int id = 0) const { std::cout << m_Data[id].m_Job.GetJob(); }
+    void GetUserAtID(int id = 0) const { std::cout << m_Data[id].m_User.GetName(); }
+    void GetJobAtID(int id = 0) const { std::cout << m_Data[id].m_Job.GetJob(); }
     
-    //const Transportation& GetTransportation() { return m_Transportation.GetName(); }
-    
-    // template<typename T>
-    // const T GetTransportAtID(int id) 
-    // { 
-    //     T transport;
-
-    //     if (m_TransportType == "Air")
-    //         T transport = std::get<AirTransport>(m_Data[id].m_Transport);
-    //     else if (m_TransportType == "Land")
-    //         T transport = std::get<LandTransport>(m_Data[id].m_Transport);
-    //     else 
-    //         T transport = std::get<WaterTransport>(m_Data[id].m_Transport);
-
-    //     return transport;
-    // }
-
-    const void GetTransportAtID(int id) 
+    void GetTransportAtID(int id) 
     { 
         if (m_TransportType == "Air")
         {
