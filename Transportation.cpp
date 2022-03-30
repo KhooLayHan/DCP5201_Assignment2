@@ -3,7 +3,7 @@
 #include <string>
 #include <string_view>
 #include <sstream>
-#include <vector>
+#include <utility>
 
 class Transportation 
 {
@@ -23,25 +23,25 @@ public:
         static constexpr std::array names = {
             "Aeroplane", "Helicopter", "Jet", "Airship", "Hot Air Balloon", "Space Shuttle"
         };
-   
+
         return names[index];
     }
-    
+
     static std::string_view SetLandTransportTypeName(int index)
     {
         static constexpr std::array names = {
             "Car", "Truck", "Taxi", "Bus", "Train", "Ambulance", "Motorbike"
         };
-   
+
         return names[index];
     }
-    
+
     static std::string_view SetWaterTransportTypeName(int index)
     {
         static constexpr std::array names = {
             "Ship", "Sailboat", "Yacht", "Submarine"
         };
-   
+
         return names[index];
     }
 
@@ -61,8 +61,8 @@ class AirTransport : public Transportation
 public:
     AirTransport() {}
 
-    AirTransport(const std::string& name)
-        : m_Name{ name }
+    AirTransport(std::string&& name)
+        : m_Name(std::move(name))
     {}
 
     ~AirTransport() {}
@@ -71,7 +71,7 @@ public:
     {
         if (id >= s_AirTransportTypeSize)
             return m_TransportationName = "ERROR";
-    
+
         m_TransportationName = SetAirTransportTypeName(id);
         return m_TransportationName;
     }
@@ -85,7 +85,6 @@ public:
 
 private:
     std::string m_Name;
-
     static constexpr int s_AirTransportTypeSize = 6;
 };
 
@@ -94,8 +93,8 @@ class LandTransport : public Transportation
 public:
     LandTransport() {}
 
-    LandTransport(const std::string& name)
-        : m_Name(name)
+    LandTransport(std::string&& name)
+        : m_Name(std::move(name))
     {}
 
     ~LandTransport() {}
@@ -111,14 +110,12 @@ public:
 
     friend std::ostream& operator<<(std::ostream& out, const LandTransport& land_transport)
     {
-        // out << "Hello! I'm from LandTransport\n";
         out << static_cast<const Transportation&>(land_transport);
         return out;
     }
 
 private:
     std::string m_Name;
-
     static constexpr int s_LandTransportTypeSize = 7;
 };
 
@@ -127,8 +124,8 @@ class WaterTransport : public Transportation
 public:
     WaterTransport() {}
 
-    WaterTransport(const std::string& name)
-        : m_Name(name)
+    WaterTransport(std::string&& name)
+        : m_Name(std::move(name))
     {}
 
     ~WaterTransport() {}
@@ -144,13 +141,11 @@ public:
 
     friend std::ostream& operator<<(std::ostream& out, const WaterTransport& water_transport)
     {
-        //out << "Hello! I'm from WaterTransport\n";
         out << static_cast<const Transportation&>(water_transport);
         return out;
     }
 
 private:
     std::string m_Name;
-
     static constexpr int s_WaterTransportTypeSize = 4;
 };
