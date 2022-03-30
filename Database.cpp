@@ -121,7 +121,7 @@ public:
     const void AddUser(const std::string& user) 
     {
         m_User.SetName(user);
-        m_Data[0].m_User = m_User;
+        m_Data.push_back({ m_User });
     }
 
     const void AddJob(const std::string& job)
@@ -173,8 +173,11 @@ public:
         {
             std::cout << "| " << IDGenerator::GenerateID() << "  | ";
             GetUserAtID(i);
-            std::cout << " | " << GetJobAtID(i)
-                << " | " << GetTransportAtID(i) << "\n";
+            std::cout << " | ";
+            GetJobAtID(i);
+            std::cout << " | "; 
+            GetTransportAtID(i);
+            std::cout << "\n";
         }
     }
 
@@ -198,7 +201,7 @@ public:
     const void GetUserAtID(int id = 0) const { std::cout << m_Data[id].m_User.GetName(); }
 
     //const Job& GetJobListing() { return m_Job.JobsListing(1); }
-    const std::string& GetJobAtID(int id = 0) const { return m_Data[id].m_Job.GetJob(); }
+    const void GetJobAtID(int id = 0) const { std::cout << m_Data[id].m_Job.GetJob(); }
     
     //const Transportation& GetTransportation() { return m_Transportation.GetName(); }
     
@@ -217,13 +220,23 @@ public:
     //     return transport;
     // }
 
-    const AirTransport GetTransportAtID(int id) 
+    const void GetTransportAtID(int id) 
     { 
-        AirTransport transport = std::get<AirTransport>(m_Data[id].m_Transport);
-      //  LandTransport transport = std::get<LandTransport>(m_Data[id].m_Transport);
-    //    WaterTransport transport = std::get<WaterTransport>(m_Data[id].m_Transport);
-        
-        return transport;
+        if (m_TransportType == "Air")
+        {
+            AirTransport transport = std::get<AirTransport>(m_Data[id].m_Transport);
+            std::cout << transport;
+        }
+        else if (m_TransportType == "Land")
+        {
+            LandTransport transport = std::get<LandTransport>(m_Data[id].m_Transport);
+            std::cout << transport;
+        }
+        else
+        {
+            WaterTransport transport = std::get<WaterTransport>(m_Data[id].m_Transport);
+            std::cout << transport;
+        }
     }
 
 private:
