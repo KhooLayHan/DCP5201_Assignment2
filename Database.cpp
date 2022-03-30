@@ -57,24 +57,26 @@ public:
     // }
 
     Database(const std::string& user, const std::string& job, int id, const char* is_transport_type)
-        : m_User{ user }, m_Job{ job }, m_TransportType{ is_transport_type }
+        : m_User{ user }, m_TransportType{ is_transport_type }
     {
         if (m_TransportType == "Air")
         {
+            m_Job.GetJobFromListing(job);
             m_AirTransport.GetTransportTypeName(id);
             m_Data.push_back({ m_User, m_Job, m_AirTransport });
         }
         else if (m_TransportType == "Land")
         {
+            m_Job.GetJobFromListing(job);
             m_LandTransport.GetTransportTypeName(id);
             m_Data.push_back({ m_User, m_Job, m_LandTransport });
         }
         else if (m_TransportType == "Water")
         {
+            m_Job.GetJobFromListing(job);
             m_WaterTransport.GetTransportTypeName(id);
             m_Data.push_back({ m_User, m_Job, m_WaterTransport });
         }
-
     }
 
     // Database(const std::string& User, const std::string& job, int land_id)
@@ -98,7 +100,7 @@ public:
     {
         m_TransportType = "Air";
         m_User.SetName(user);
-        m_Job.SetName(job);
+        m_Job.GetJobFromListing(job);
         m_AirTransport.GetTransportTypeName(air_id);
         m_Data.push_back({ m_User, m_Job, m_AirTransport });
     }
@@ -107,7 +109,7 @@ public:
     {
         m_TransportType = "Land";
         m_User.SetName(user);
-        m_Job.SetName(job);
+        m_Job.GetJobFromListing(job);
         m_LandTransport.GetTransportTypeName(land_id);
         m_Data.push_back({ m_User, m_Job, m_LandTransport });
     }
@@ -116,21 +118,57 @@ public:
     {
         m_TransportType = "Water";
         m_User.SetName(user);
-        m_Job.SetName(job);
+        m_Job.GetJobFromListing(job);
         m_WaterTransport.GetTransportTypeName(water_id);
         m_Data.push_back({ m_User, m_Job, m_WaterTransport });
     }
 
-    void AddUser(const std::string& user) 
+    const void AddUser(const std::string& user) 
     {
         m_User.SetName(user);
-        m_Data.push_back({ m_User });
+        m_Data[0].m_User = m_User;
     }
+
+    const void AddJob(const std::string& job)
+    {
+        m_Job.GetJobFromListing(job);
+        m_Data[0].m_Job = m_Job;
+    } 
+
+    const void AddAirTransport(int id)
+    {   
+        m_TransportType = "Air";    
+        m_AirTransport.GetTransportTypeName(id);
+        m_Data[0].m_Transport = m_AirTransport;
+    } 
+    
+    const void AddLandTransport(int id)
+    {   
+        m_TransportType = "Land";    
+        m_LandTransport.GetTransportTypeName(id);
+        m_Data[0].m_Transport = m_LandTransport;
+    } 
+    
+    const void AddWaterTransport(int id)
+    {   
+        m_TransportType = "Air";    
+        m_WaterTransport.GetTransportTypeName(id);
+        m_Data[0].m_Transport = m_WaterTransport;
+    } 
 
     const void RemoveAll() { m_Data.clear(); }
     const void RemoveUser() { m_Data[0].m_User = std::string(""); }
     const void RemoveJob() { m_Data[0].m_Job = std::string(""); }
-    const void RemoveTransport() { m_Data[0].m_Transport = std::string(""); }
+    
+    const void RemoveTransport() 
+    { 
+        if (m_TransportType == "Air")
+            m_Data[0].m_Transport.emplace<AirTransport>(""); 
+        if (m_TransportType == "Land")
+            m_Data[0].m_Transport.emplace<LandTransport>(""); 
+        if (m_TransportType == "Water")
+            m_Data[0].m_Transport.emplace<WaterTransport>(""); 
+    }
 
     void Print()
     {
@@ -193,6 +231,9 @@ public:
     const AirTransport GetTransportAtID(int id) 
     { 
         AirTransport transport = std::get<AirTransport>(m_Data[id].m_Transport);
+      //  LandTransport transport = std::get<LandTransport>(m_Data[id].m_Transport);
+    //    WaterTransport transport = std::get<WaterTransport>(m_Data[id].m_Transport);
+        
         return transport;
     }
 
