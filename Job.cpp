@@ -37,11 +37,13 @@ public:
 
         for (int i = 0; i != jobs_listing.size(); i++)
         {
-            if (jobs_listing[i] == name)
-                return m_Job = name;
-        }
+            if (jobs_listing[i] != name)
+            {
+                return "Can't find specify job from job listing!\n";
+            }   
 
-        return "Can't find specify name from job listing!\n";
+            return m_Job = name;
+        }
     }
 
     const std::string& GetJob() const { return m_Job; }
