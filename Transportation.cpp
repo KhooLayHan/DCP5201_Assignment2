@@ -92,51 +92,30 @@ private:
 class LandTransport : public Transportation
 {
 public:
-    enum class Land
-    {
-        CAR = 0,
-        TRUCK = 1,
-        TAXI = 2,
-        BUS = 3,
-        TRAIN = 4,
-        AMBULANCE = 5,
-        MOTORBIKE = 6,
-        MAX_SIZE = 7
-    }; 
-
     LandTransport() {}
 
-    LandTransport(Land type)
-        : m_Type(type)
-    {}
-
-    LandTransport(int land_id)
-        : m_Type(static_cast<Land>(land_id))
+    LandTransport(const std::string& name)
+        : m_Name{ name }
     {}
 
     ~LandTransport() {}
 
     const std::string& GetTransportTypeName(int id)
     {
-        if (id >= (int)Land::MAX_SIZE)
-        {
-            std::cout << "Land Transport ID is not available!\n";
-            return m_TransportationName = " ";
-        }
+        if (id >= s_LandTransportTypeSize)
+            return m_TransportationName = "ERROR";
 
-       // m_TransportationName = SetTransportTypeName(id).at(static_cast<std::size_t>(m_Type));
        return m_TransportationName;
     }
 
     friend std::ostream& operator<<(std::ostream& out, const LandTransport& land_transport)
     {
-        out << "Hello! I'm from LandTransport\n";
+        //out << "Hello! I'm from LandTransport\n";
         out << static_cast<const Transportation&>(land_transport);
         return out;
     }
 
 private:
-    Land m_Type;
     std::string m_Name;
 
     static constexpr int s_LandTransportTypeSize = 7;
@@ -145,49 +124,31 @@ private:
 class WaterTransport : public Transportation
 {
 public:
-    enum class Water
-    {
-        SHIP = 0,
-        SAILBOAT = 1,
-        YACHT = 2,
-        SUBMARINE = 3,
-        MAX_SIZE = 4
-    };
-
     WaterTransport() {}
 
-    WaterTransport(Water type)
-        : m_Type(type)
-    {}
-
-    WaterTransport(int water_id)
-        : m_Type(static_cast<Water>(water_id))
+    WaterTransport(const std::string& name)
+        : m_Name(name)
     {}
 
     ~WaterTransport() {}
 
     const std::string& GetTransportTypeName(int id)
     {   
-        if (id >= (int)Water::MAX_SIZE)
-        {
-            std::cout << "Water Transport ID NOT AVAILABLE!\n";
-            return m_TransportationName = " ";
-        }
+        if (id >= s_WaterTransportTypeSize)
+            return m_TransportationName = "ERROR";
 
-      //  m_TransportationName = SetTransportTypeName(id).at(static_cast<std::size_t>(m_Type));
         return m_TransportationName;
     }
 
     friend std::ostream& operator<<(std::ostream& out, const WaterTransport& water_transport)
     {
-        out << "Hello! I'm from WaterTransport\n";
+        //out << "Hello! I'm from WaterTransport\n";
         out << static_cast<const Transportation&>(water_transport);
         return out;
     }
 
 private:
-    Water m_Type;
     std::string m_Name;
 
-    static constexpr int s_AirTransportTypeSize = 4;
+    static constexpr int s_WaterTransportTypeSize = 4;
 };
