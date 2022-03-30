@@ -131,11 +131,6 @@ public:
     const void RemoveUser() { m_Data[0].m_User = std::string(""); }
     const void RemoveJob() { m_Data[0].m_Job = std::string(""); }
     const void RemoveTransport() { m_Data[0].m_Transport = std::string(""); }
-    
-    // void RemoveUser()
-    // {
-    //     m_User.
-    // }
 
     void Print()
     {
