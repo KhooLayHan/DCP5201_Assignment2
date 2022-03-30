@@ -118,44 +118,43 @@ public:
         m_Data.push_back({ m_User, m_Job, m_WaterTransport });
     }
 
-    const void AddUser(const std::string& user) 
+    void AddUser(const std::string& user) 
     {
         m_User.SetName(user);
         m_Data.push_back({ m_User });
     }
 
-    const void AddJob(const std::string& job)
+    void AddJob(const std::string& job)
     {
         m_Job.GetJobFromListing(job);
         m_Data[0].m_Job = m_Job;
     } 
 
-    const void AddAirTransport(int id)
+    void AddAirTransport(int id)
     {   
         m_TransportType = "Air";    
         m_AirTransport.GetTransportTypeName(id);
         m_Data[0].m_Transport = m_AirTransport;
     } 
     
-    const void AddLandTransport(int id)
+    void AddLandTransport(int id)
     {   
         m_TransportType = "Land";    
         m_LandTransport.GetTransportTypeName(id);
         m_Data[0].m_Transport = m_LandTransport;
     } 
     
-    const void AddWaterTransport(int id)
+    void AddWaterTransport(int id)
     {   
         m_TransportType = "Air";    
         m_WaterTransport.GetTransportTypeName(id);
         m_Data[0].m_Transport = m_WaterTransport;
     } 
 
-    const void RemoveAll() { m_Data.clear(); }
-    const void RemoveUser() { m_Data[0].m_User = std::string(""); }
-    const void RemoveJob() { m_Data[0].m_Job = std::string(""); }
-    
-    const void RemoveTransport() 
+    void RemoveAll() { m_Data.clear(); }
+    void RemoveUser() { m_Data[0].m_User = std::string(""); }
+    void RemoveJob() { m_Data[0].m_Job = std::string(""); }
+    void RemoveTransport() 
     { 
         std::cout << m_TransportType << "\n";
 
@@ -166,6 +165,8 @@ public:
         if (m_TransportType == "Water")
             m_Data[0].m_Transport.emplace<WaterTransport>(""); 
     }
+
+
 
     void Print()
     {
