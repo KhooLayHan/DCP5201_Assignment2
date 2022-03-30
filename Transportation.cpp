@@ -95,7 +95,7 @@ public:
     LandTransport() {}
 
     LandTransport(const std::string& name)
-        : m_Name{ name }
+        : m_Name(name)
     {}
 
     ~LandTransport() {}
@@ -105,12 +105,13 @@ public:
         if (id >= s_LandTransportTypeSize)
             return m_TransportationName = "ERROR";
 
+       m_TransportationName = SetLandTransportTypeName(id);
        return m_TransportationName;
     }
 
     friend std::ostream& operator<<(std::ostream& out, const LandTransport& land_transport)
     {
-        //out << "Hello! I'm from LandTransport\n";
+        // out << "Hello! I'm from LandTransport\n";
         out << static_cast<const Transportation&>(land_transport);
         return out;
     }
@@ -137,6 +138,7 @@ public:
         if (id >= s_WaterTransportTypeSize)
             return m_TransportationName = "ERROR";
 
+        m_TransportationName = SetWaterTransportTypeName(id);
         return m_TransportationName;
     }
 
