@@ -10,8 +10,6 @@
 
 void DisplayLines(char type, int count)
 {   
-    //std::string string_type[] = { (std::string)type };
-
     for (int i = 0; i != count; i++)
     {
         std::cout << type;
