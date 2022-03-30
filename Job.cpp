@@ -3,12 +3,6 @@
 #include <string>
 #include <vector>
 
-int GetRandomJobListing(int min, int max)
-{   
-    static constexpr double fraction = 1.0 / (RAND_MAX + 1.0);
-    return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
-}
-
 /*
 Transportation {
     air: ["Aeroplane", "Helicopter", "Jet", "Airship", "Hot Air Balloon", "Space Shuttle"],
@@ -26,7 +20,7 @@ public:
         : m_Job(name)
     {}
 
-    const std::string GetJobFromListing(const std::string& name)
+    static std::vector<std::string> JobsListing()
     {
         static std::vector<std::string> jobs = {
             "Pilot", "Aeronaut", "Astronaut", 
@@ -34,29 +28,25 @@ public:
             "Sailor", "Submariner", "Seafarer"
         };
 
-        for (int i = 0; i != jobs.size(); i++)
+        return jobs;
+    }
+
+    const std::string GetJobFromListing(const std::string& name)
+    {
+        auto jobs_listing = JobsListing();
+
+        for (int i = 0; i != jobs_listing.size(); i++)
         {
-            if (jobs[i] == name)
-            {
-                //std::cout << name << " " << i;   
-                m_Job = name;
-                return m_Job;
-            }
-            else 
-            {
-                //std::cout << D
-            }
+            if (jobs_listing[i] == name)
+                return m_Job = name;
         }
 
-        return "Can't find specify name from job listing!";
+        return "Can't find specify name from job listing!\n";
     }
 
     const std::string& GetJob() const { return m_Job; }
-    const std::string& GetJob(int index) const { return m_JobListing[index]; }
-
     void SetName(const std::string& job) { m_Job = job; }
 
 private:
     std::string m_Job;
-    std::vector<std::string> m_JobListing;
 };
