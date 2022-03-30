@@ -1,6 +1,7 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <vector>
 
 int GetRandomJobListing(int min, int max)
@@ -20,28 +21,34 @@ Transportation {
 class Job
 {
 public:
-    Job() 
-    {
-        for (int i = 0; i != s_JobsLength; i++)
-        {
-            m_Job = JobsListing(GetRandomJobListing(0, s_JobsLength));
-            m_JobListing.push_back(m_Job);
-        }
-    }
+    Job() {}
 
     Job(const std::string& name)
         : m_Job(name)
     {}
 
-    static std::string& JobsListing(int index)
+    static std::string_view GetJobFromListing(const std::string& name)
     {
-        static std::string jobs[] = {
+        static std::vector<std::string> jobs = {
             "Pilot", "Aeronaut", "Astronaut", 
             "Truck Driver", "Taxi Driver", "Bus Driver", "Train Driver", "Paramedic", "Motorcyclist",
             "Sailor", "Submariner", "Seafarer"
         };
 
-        return jobs[index];
+        for (int i = 0; i != jobs.size(); i++)
+        {
+            if (jobs[i] == name)
+            {
+                std::cout << name << " " << i;   
+                return name;
+            }
+            else 
+            {
+                //std::cout << D
+            }
+        }
+
+        return "Can't find specify name from job listing!";
     }
     
     const std::string& GetJob() const { return m_Job; }
@@ -51,6 +58,5 @@ public:
 
 private:
     std::string m_Job;
-    static constexpr int s_JobsLength = 10;
     std::vector<std::string> m_JobListing;
 };
