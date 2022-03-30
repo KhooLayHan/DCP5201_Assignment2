@@ -1,7 +1,6 @@
 #include <ctime>
 #include <iostream>
 #include <string>
-#include <string_view>
 #include <vector>
 
 int GetRandomJobListing(int min, int max)
@@ -27,7 +26,7 @@ public:
         : m_Job(name)
     {}
 
-    static std::string_view GetJobFromListing(const std::string& name)
+    const std::string GetJobFromListing(const std::string& name)
     {
         static std::vector<std::string> jobs = {
             "Pilot", "Aeronaut", "Astronaut", 
@@ -39,8 +38,9 @@ public:
         {
             if (jobs[i] == name)
             {
-                std::cout << name << " " << i;   
-                return name;
+                //std::cout << name << " " << i;   
+                m_Job = name;
+                return m_Job;
             }
             else 
             {
@@ -50,7 +50,7 @@ public:
 
         return "Can't find specify name from job listing!";
     }
-    
+
     const std::string& GetJob() const { return m_Job; }
     const std::string& GetJob(int index) const { return m_JobListing[index]; }
 
