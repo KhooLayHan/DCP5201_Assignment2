@@ -43,6 +43,8 @@ public:
 
             return m_Job = name;
         }
+
+        return "None";
     }
 
     const std::string& GetJob() const { return m_Job; }
