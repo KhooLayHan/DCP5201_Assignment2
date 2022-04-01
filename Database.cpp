@@ -30,7 +30,7 @@ class Database
 public:
     Database() 
     {
-        std::cout << "Database Constructor\n";
+        // std::cout << "Database Constructor\n";
         if (!m_Data.empty())
             m_Data.clear();
     };
@@ -87,7 +87,7 @@ public:
 
     ~Database() 
     {
-        std::cout << "Database Destructor\n"; 
+        // std::cout << "Database Destructor\n"; 
     }
 
     void AddAirData(const std::string& user, const std::string& job, int air_id)
@@ -207,51 +207,31 @@ public:
     {
         for (int i = 0; i != m_Data.size(); i++)
         {
-            std::cout << "| " << IDGenerator::GenerateID() << "  | ";
-            GetUserAtID(i);
-            std::cout << " | ";
-            GetJobAtID(i);
-            std::cout << " | "; 
-            GetTransportAtID(i);
-            std::cout << "\n";
+            std::cout << "| " << IDGenerator::GenerateID() << "  | "
+                << GetUserAtID(i) << " | " << GetJobAtID(i) << " | " 
+                << GetTransportAtID(i) << " |\n";
         }
     }
 
-    // void CheckJobAvailability()
-    // {
-    //     std::string available_jobs = "Aeroplane";
+    const std::string& GetUserAtID(int id = 0) { return m_Data[id].m_User.GetName(); }
+    const std::string& GetJobAtID(int id = 0) { return m_Data[id].m_Job.GetJob(); }
 
-    //     if (available_jobs == "Aeroplane") 
-    //     {
-    //         std::cout << m_Name << " are hired to " << m_Job << "!\n"; 
-    //         AddUserListing();
-    //     } 
-    //     else 
-    //     {
-    //         std::cout << "OOPS! The job is not available\n";
-    //         //return false;
-    //     }
-    // }
-
-    void GetUserAtID(int id = 0) const { std::cout << m_Data[id].m_User.GetName(); }
-    void GetJobAtID(int id = 0) const { std::cout << m_Data[id].m_Job.GetJob(); }
-    
-    void GetTransportAtID(int id) 
+    const std::string GetTransportAtID(int id) 
     { 
         if (m_TransportType == "Air")
         {
             AirTransport transport = std::get<AirTransport>(m_Data[id].m_Transport);
-            std::cout << transport;
+            return transport.SetPadding();
         }
         else if (m_TransportType == "Land")
         {
             LandTransport transport = std::get<LandTransport>(m_Data[id].m_Transport);
-            std::cout << transport;
+            return transport.SetPadding();;
         }
         else
         {
             WaterTransport transport = std::get<WaterTransport>(m_Data[id].m_Transport);
-            std::cout << transport;
+            return transport.SetPadding();;
         }
     }
 
