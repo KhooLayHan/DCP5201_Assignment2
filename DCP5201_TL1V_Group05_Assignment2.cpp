@@ -18,7 +18,7 @@ void PrintProgramHeader()
 void PrintProgramFooter()
 {
     DisplayLines('-', 52);
-    std::cout << "Thank you for using the Jobs Management System.";
+    std::cout << "Thank you for using the Jobs Management System.\n";
 }
 
 int main()
