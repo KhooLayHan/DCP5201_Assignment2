@@ -45,9 +45,26 @@ public:
         return names[index];
     }
 
+    const std::string SetPadding() // Assuming the length or size of the transport is not greater than max_size
+    {
+        static constexpr std::size_t max_size = 16;
+        
+        if (m_TransportationName.size() >= max_size)
+            return m_TransportationName;
+        
+        std::size_t padding_size = max_size - m_TransportationName.size();
+
+        if (padding_size == max_size) // Additional if-checker when transport does not actually exist
+            m_TransportationName = "                ";
+
+        for (int i = 0; i != padding_size; i++)
+            m_TransportationName.append(" ");
+
+        return m_TransportationName;
+    }
+
     friend std::ostream& operator<<(std::ostream& out, const Transportation& transport)
     {
-        //out << "From Transportation base class\n";
         out << transport.m_TransportationName;
         return out;
     }
@@ -77,8 +94,7 @@ public:
     }
 
     friend std::ostream& operator<<(std::ostream& out, const AirTransport& air_transport)
-    {
-        //out << "Hello! I'm from AirTransport\n";
+    {;
         out << static_cast<const Transportation&>(air_transport);
         return out;
     }
