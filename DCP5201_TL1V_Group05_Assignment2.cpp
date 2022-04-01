@@ -31,16 +31,19 @@ void Message(const std::string& message)
 
 class UserInput // Custom "Whatever" Design Pattern
 {
+public:
     UserInput() = delete;
     UserInput(const UserInput&) = delete;
     ~UserInput() = delete;
     void operator=(const UserInput&) = delete;
 
-    void GetFullDetails()
+    const std::tuple<std::string, std::string, int> GetFullDetails()
     {
         std::getline(std::cin >> std::ws, m_Username);
         std::getline(std::cin >> std::ws, m_Job);
         std::cin >> m_TransportCode;
+
+        return { m_Username, m_Job, m_TransportCode };
     }
 
     void GetUsernameDetails() { std::getline(std::cin >> std::ws, m_Username); }
@@ -54,7 +57,6 @@ class UserInput // Custom "Whatever" Design Pattern
     void ReplaceUsernameDetails() { std::getline(std::cin >> std::ws, m_Username); }
     void ReplaceJobDetails() { std::getline(std::cin >> std::ws, m_Job); }
     void ReplaceTransportDetails() { std::cin >> m_TransportCode; }
-    
 
 private:
     std::string m_Username;
@@ -152,28 +154,16 @@ public:
         RequestSecondInstruction(message_code);
     } 
 
-    void GetInstructionDataFields(std::string username, std::string job, int transport_code)
-    {
-        if ()
-        
-        std::getline(std::cin >> std::ws, username);
-        std::getline(std::cin >> std::ws, job);
-        std::cin >> transport_code;
-    }
-
     void RequestSecondInstruction(const std::string& message)
     {
         CONSOLE("Enter the data fields of the instruction " << message << ".\n");
 
-        std::string username, job;
+        std::string username = "", job = "";
         int transport_code = 0;
-
-        if (message == "AddAirData" || message == "AddLandData" || message == "AddWaterData")    
+ || message == "AddLandData" || message == "AddWaterData"
+        if (message == "AddAirData")    
         {
-            std::getline(std::cin >> std::ws, username);
-            std::getline(std::cin >> std::ws, job);
-            std::cin >> transport_code;
-
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
             m_Database.AddAirData(username, job, transport_code);
         }
     }
@@ -193,9 +183,10 @@ public:
     }
 
 private:
-    std::string m_UserInput;
+    //std::string m_UserInput;
 
     Database m_Database;
+    UserInput m_UserInput;
 };
 
 int main()
