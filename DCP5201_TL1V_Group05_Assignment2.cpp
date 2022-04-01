@@ -15,6 +15,12 @@ void PrintProgramHeader()
     DisplayLines('-', 52);
 }
 
+void PrintProgramFooter()
+{
+    DisplayLines('-', 52);
+    std::cout << "Thank you for using the Jobs Management System.";
+}
+
 int main()
 {
     PrintProgramHeader();
@@ -118,5 +124,7 @@ int main()
     // Job job;
 
     // job.GetJobFromListing("Taxi Driver");
+
+    PrintProgramFooter();
 
 }
