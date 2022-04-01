@@ -81,26 +81,7 @@ public:
 
     }
 
-    enum class InstructionCode
-    {
-        Error = -1,
-        AddAirData = 0,
-        AddLandData = 1,
-        AddWaterData = 2,
-        AddUser = 3,
-        RemoveUser = 4,
-        ReplaceUser = 5,
-        ReplaceJob = 6,
-        AddAirTransport = 7,
-        AddLandTransport = 8,
-        AddWaterTransport = 9,
-        RemoveTransport = 10,
-        ReplaceTransport = 11,
-        RemoveAll = 12,
-        Print = 13
-    };
-
-    static std::pair<std::string, int> Instructions(const std::string instruction)
+    static std::string Instructions(const std::string& instruction)
     {
         static constexpr std::array instructions_list = {
             "Error", // In case of a falsely-inserted instruction 
@@ -112,28 +93,12 @@ public:
         };
 
         auto result = std::find(instructions_list.begin(), instructions_list.end(), instruction); 
-        
-        if (result == std::end(instructions_list))
-        {
-            CONSOLE("Failure to process given instruction.\n");
-            return { "ERROR CODE: -1", static_cast<int>(InstructionCode::Error) };   
-        }
-        
-        for (int i = 0; i != instructions_list.size(); i++)
-        {
-            if (instructions_list[i] == instruction)
-            {
-                return { instruction,  }
-            }
-        }
 
         if (result != std::end(instructions_list))
-        {
-            instructions_list.data();
-            
-        }
+            return instruction;
 
-        return { instruction };
+        CONSOLE("Failure to process given instruction.\n");
+        return "ERROR CODE: -1";   
     }
 
     void RequestFirstInstruction()
@@ -160,7 +125,57 @@ public:
 
         std::string username = "", job = "";
         int transport_code = 0;
- || message == "AddLandData" || message == "AddWaterData"
+
+        if (message == "AddAirData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddAirData(username, job, transport_code);
+        }
+        else if (message == "AddLandData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddLandData(username, job, transport_code);
+        }
+        else if (message == "AddWaterData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddWaterData(username, job, transport_code);
+        }
+        if (message == "AddAirData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddAirData(username, job, transport_code);
+        }
+        if (message == "AddAirData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddAirData(username, job, transport_code);
+        }
+        if (message == "AddAirData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddAirData(username, job, transport_code);
+        }
+        if (message == "AddAirData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddAirData(username, job, transport_code);
+        }
+        if (message == "AddAirData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddAirData(username, job, transport_code);
+        }
+        if (message == "AddAirData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddAirData(username, job, transport_code);
+        }
+        if (message == "AddAirData")    
+        {
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            m_Database.AddAirData(username, job, transport_code);
+        }
         if (message == "AddAirData")    
         {
             const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
