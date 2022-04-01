@@ -36,15 +36,10 @@ public:
 
         for (int i = 0; i != jobs_listing.size(); i++)
         {
-            if (jobs_listing[i] != name)
-            {
-                return "ERROR";
-            }   
-
             return m_Job = name;
         }
 
-        return "NONE";
+        return "ERROR";
     }
 
     const std::string& GetJob() // Assuming the length or size of the job is not greater than max_size
@@ -57,7 +52,7 @@ public:
         std::size_t padding_size = max_size - m_Job.size();
 
         if (padding_size == max_size) // Additional if-checker when job does not actually exist
-            return m_Job = "            ";
+            return m_Job = "             ";
 
         for (int i = 0; i != padding_size; i++)
             m_Job.append(" ");
