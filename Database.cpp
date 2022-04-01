@@ -255,6 +255,12 @@ public:
         }
     }
 
+    // static Database& ClearAll() 
+    // {
+    //     for (int i = 0; i != 10; i++)
+    //     {}
+    // }
+
 private:
     User m_User;
     Job m_Job;
