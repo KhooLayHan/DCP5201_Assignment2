@@ -205,12 +205,20 @@ public:
 
     void Print()
     {
+        std::cout << "\n\t       JOBS MANAGEMENT SYSTEM\n";
+        DisplayLines('-', 52);                          
+        std::cout << "| ID | Username |      Job      |  Transportation  |\n";
+        DisplayLines('-', 52);
+
         for (int i = 0; i != m_Data.size(); i++)
         {
             std::cout << "| " << IDGenerator::GenerateID() << "  | "
                 << GetUserAtID(i) << " | " << GetJobAtID(i) << " | " 
                 << GetTransportAtID(i) << " |\n";
         }
+
+        DisplayLines('-', 52);
+        std::cout << "Thank you for using the Jobs Management System.\n";
     }
 
     const std::string& GetUserAtID(int id = 0) { return m_Data[id].m_User.GetName(); }
