@@ -21,6 +21,9 @@ public:
         
         std::size_t padding_size = max_size - m_Name.size();
 
+        if (padding_size == max_size)
+            return m_Name = "        ";
+
         for (int i = 0; i != padding_size; i++)
             m_Name.append(" ");
 
