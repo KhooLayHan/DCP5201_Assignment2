@@ -38,17 +38,32 @@ public:
         {
             if (jobs_listing[i] != name)
             {
-                return "Can't find specify job from job listing!\n";
+                return "ERROR";
             }   
 
             return m_Job = name;
         }
 
-        return "None";
+        return "NONE";
     }
 
-    const std::string& GetJob() const { return m_Job; }
-    void SetName(const std::string& job) { m_Job = job; }
+    const std::string& GetJob() // Assuming the length or size of the job is not greater than max_size
+    { 
+        static constexpr std::size_t max_size = 13;
+        
+        if (m_Job.size() >= max_size)
+            return m_Job;
+        
+        std::size_t padding_size = max_size - m_Job.size();
+
+        if (padding_size == max_size) // Additional if-checker when job does not actually exist
+            return m_Job = "            ";
+
+        for (int i = 0; i != padding_size; i++)
+            m_Job.append(" ");
+
+        return m_Job;
+    }
 
 private:
     std::string m_Job;
