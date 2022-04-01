@@ -3,12 +3,16 @@
 
 #include "Database.cpp"
 
+/*
+    This program uses C++17.
+*/
+
 void PrintProgramHeader()
 {
-    std::cout << "\n\t   JOBS MANAGEMENT SYSTEM\n";
-    DisplayLines('-', 51);                          
-    std::cout << "| ID | Usernames |     Jobs     |  Transportation |\n";
-    DisplayLines('-', 51);
+    std::cout << "\n\t       JOBS MANAGEMENT SYSTEM\n";
+    DisplayLines('-', 52);                          
+    std::cout << "| ID | Username |      Job      |  Transportation  |\n";
+    DisplayLines('-', 52);
 }
 
 int main()
@@ -56,16 +60,16 @@ int main()
     // // // }
 
      database_[4].AddUser("WIcked");
-    database_[4].AddJob("Astronaut");
+    database_[4].AddJob("Train Driver");
     database_[4].AddAirTransport(3);
     static constexpr int database_size = sizeof(database_) / sizeof(database_[0]);
 
-    // database_[0].RemoveUser();
+    //database_[0].RemoveUser();
     // database_[2].RemoveJob();
     // database_[3].RemoveTransport();
 
-    database_[0].ReplaceUser("LooLoo");
-    database_[1].ReplaceJob("Taxi Driver");
+    database_[0].ReplaceUser("");
+    // database_[1].ReplaceJob("Taxi Driver");
     for (int i = 0; i != database_size; i++)
     {
         database_[i].Print();
