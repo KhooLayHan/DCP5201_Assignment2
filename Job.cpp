@@ -48,7 +48,7 @@ public:
         static constexpr std::size_t max_size = 13;
         
         if (m_Job == "")
-            m_Job = "ERROR";  
+            m_Job = "NONE";  
 
         if (m_Job.size() >= max_size)
             return m_Job;
