@@ -261,162 +261,39 @@ private:
 
 int main()
 {
-    // Sample Output of using new and delete keywords to initialize Database;
-
-    Database* database = new Database[3]{ 
-        { "Charles", "Astronaut", 5, "Air" },
-        { "Henry", "Train Driver", 4, "Air" },
-        { "Ling", "Sailor", 0, "Air" },
-    };
-
-    if(!database)
-    {
-        std::cout << "Can't initialize memory for database!\n";
-        return 0;
-    }
-
-    for (int i = 0; i != 3; i++)
-        database[i].Print();
-
-    //database[0].AddAirData("Vincent", "Astronaut", 1);
-
     UserInput user_input;
     Console console;
 
-    PrintTableHeader();
-    PrintTableFooter();
+    unsigned int select;
+    std::cout << "Please select 0 if you want a non-interactive program, or 1 if you want CONSOLE for company.\n";
+    std::cin >> select;
 
-    //console.Init();
+    if (select == 0)
+    {
+        // Sample Output of using new and delete keywords to initialize Database (Not through CONSOLE demo version) 
 
-    static constexpr std::size_t database_size = sizeof(db_) / sizeof(db_[0]);
+        Database* database = new Database[6]{ 
+            { "Charles", "Astronaut", 6, "Air" },
+            { "Henry", "Train Driver", 5, "Land" },
+            { "Ling", "Sailor", 0, "Water" },
+        };
 
-    //  std::cout << "\n\t       JOBS MANAGEMENT SYSTEM\n";
-    //     DisplayLines('-', 52);                          
-    //     std::cout << "| ID | Username |      Job      |  Transportation  |\n";
-    //     DisplayLines('-', 52);
+        if(!database)
+        {
+            std::cout << "Can't initialize memory for database!\n";
+            return 0;
+        }
 
-    // for (int i = 0; i != database_size; i++)
-    // {
-    //     db_[i].Print();
+        PrintTableHeader();
+        for (int i = 0; i != 3; i++)
+            database[i].Print();
+        PrintTableFooter();
 
-    // }
-
-    //  DisplayLines('-', 52);
-    //     std::cout << "Thank you for using the Jobs Management System.\n";
-
-    // Message("What do you want to do next?\n");
-    
-    // std::string user_input;
-    // std::cin >> user_input;
-
-    // if (user_input == "")
-
-    // PrintProgramHeader();
-
-    //std::string* username_ = new std::string;
-
-    // std::string username;
-    // std::cout << "Enter Username: ";
-    // std::getline(std::cin >> std::ws, username);
-
-    // std::cout << username;
-
-    //Database database("Charles", "Train Driver", 0);
-    
-    //database.Print();
-
-    //database.AddAirData("Henry", "Astronaut", 5);
-
-//     Database database_[5];
-
-//     database_[0] = { "Lee", "Astronaut", 5, "Air" };
-//     database_[1] = { "Henry", "Train Driver", 4, "Land" };
-//     database_[2] = { "Ling", "Sailor", 0, "Water" };
-
-//     // User user;
-
-//     // // Database* database = new Database[3]{
-//     // //     { "Charles", "Astronaut", 5, "Air" },
-//     // //     { "Henry", "Train Driver", 4, "Air" },
-//     // //     { "Ling", "Sailor", 0, "Air" },
-//     // // };
-
-    
-//     // // for (int i = 0; i != 5; i++)
-//     // // {
-//     // //     database[i].Print();
-//     // // }
-//     database_[3].AddAirData("Vincent", "Aeronaut", 4);
-
-//     // // // for (int i = 0; i != 4; i++)
-//     // // // {
-//     // // //     database_[i].Print();
-//     // // // }
-
-//      database_[4].AddUser("WIcked");
-//     database_[4].AddJob("Train Driver");
-//     database_[4].AddAirTransport(3);
-//     static constexpr int database_size = sizeof(database_) / sizeof(database_[0]);
-
-//     //database_[0].RemoveUser();
-//     // database_[2].RemoveJob();
-//     // database_[3].RemoveTransport();
-
-//     database_[0].ReplaceUser("");
-//     // database_[1].ReplaceJob("Taxi Driver");
-//     for (int i = 0; i != database_size; i++)
-//     {
-//         database_[i].Print();
-//     }
-
-//     // database_[3].RemoveUser();
-
-//     // database_[2].RemoveTransport();
-//     // //Rivky
-//     // database_[1].RemoveTransport();
-
-//     // database_[0].RemoveJob();
-//     // // for (int i = 0; i != database_size; i++)
-//     // // {
-//     // //     database_[i].Print();
-//     // // }
-
-//     // // database_[2].RemoveAll();
-
-//     // for (int i = 0; i != database_size; i++)
-//     // {
-//     //     database_[i].Print();
-//     // }
-
-
-//     //  //database[3].Print();
-    
-//     // // for (int i = 0; i != 5; i++)
-//     // // {
-//     // //     database[i].Print();
-//     // // }
-//     // // std::string job;
-//     // // std::cout << "Enter Job: ";
-//     // // std::getline(std::cin >> std::ws, job);
-    
-//     //Person person(username, job);
-//     //person.GetName();
-//     //person.GetJob();
-
-//     //delete[] database;
-//    // database = nullptr;
-
-//     //delete username_;
-//     //username_ = nullptr;
-
-//     // Job job;
-
-//     // job.GetJobFromListing("Taxi Driver");
-
-    //PrintProgramFooter();
-
-//    exit(0);
-
-    delete[] database;
-    // std::cin.get();
+        database[3].AddAirData("Vincent", "Pilot", 0);
+        database[4].AddWaterData("Vincent", "Truck Driver", 2);
+        
+        database[0].RemoveUser();
+        database[1].RemoveJob();
+        database[2].RemoveTransport();
+    }
 }
