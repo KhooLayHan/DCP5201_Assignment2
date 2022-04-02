@@ -91,7 +91,6 @@ public:
     static std::string Instructions(const std::string& instruction)
     {
         static constexpr std::array instructions_list = {
-            "Error", // In case of a falsely-inserted instruction 
             "AddAirData", "AddLandData", "AddWaterData",
             "AddUser", "RemoveUser", "ReplaceUser",
             "AddJob", "RemoveJob", "ReplaceJob",
