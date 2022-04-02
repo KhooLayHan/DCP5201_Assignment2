@@ -13,7 +13,6 @@ public:
     }
 
     static int GenerateID() { return GetID().GenerateIDImpl(); }
-
     static int GetCurrentID() { return GetID().CurrentIDImpl(); }
 
 private:
