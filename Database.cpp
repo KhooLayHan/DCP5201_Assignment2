@@ -125,7 +125,7 @@ public:
     
     void RemoveTransport() 
     { 
-        std::cout << m_TransportType << "\n";
+        // std::cout << m_TransportType << "\n";
 
         if (m_TransportType == "Air")
             m_Data[0].m_Transport.emplace<AirTransport>(""); 
