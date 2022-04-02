@@ -50,7 +50,7 @@ public:
     //     m_Data.push_back({ m_User, m_Job, m_AirTransport });
     // }
 
-    Database(const std::string& user, const std::string& job, int id, const char* is_transport_type)
+    Database(const std::string& user, const std::string& job, int id, std::string is_transport_type)
         : m_User{ user }, m_TransportType{ is_transport_type }
     {
         if (m_TransportType == "Air")
