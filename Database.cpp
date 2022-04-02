@@ -217,8 +217,15 @@ public:
     const std::string& GetJobAtID(int id = 0) { return m_Data[id].m_Job.GetJob(); }
 
     const std::string GetTransportAtID(int id) 
-    { 
-        if (m_TransportType == "Air")
+    {
+        if (m_TransportType == "")
+        {
+            // If variable is undefined or null, just set a default
+            m_Data[id].m_Transport.emplace<AirTransport>("");
+            AirTransport transport = std::get<AirTransport>(m_Data[id].m_Transport); 
+            return transport.SetPadding(); 
+        }
+        else if (m_TransportType == "Air")
         {
             AirTransport transport = std::get<AirTransport>(m_Data[id].m_Transport);
             return transport.SetPadding();
@@ -241,6 +248,8 @@ public:
     //     {}
     // }
 
+    const std::string& GetTransportType() const { return m_TransportType; }
+
 private:
     User m_User;
     Job m_Job;
@@ -249,7 +258,7 @@ private:
     LandTransport m_LandTransport;
     WaterTransport m_WaterTransport;
 
-    const char* m_TransportType;
+    std::string m_TransportType;
 
     std::vector<Data> m_Data;
 };
