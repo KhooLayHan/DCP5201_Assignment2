@@ -37,7 +37,7 @@ public:
         for (int i = 0; i != jobs_listing.size(); i++)
         {
             if (jobs_listing[i] == name)
-                return m_Job;
+                return m_Job = name;
         }
 
         return m_Job = "ERROR";
