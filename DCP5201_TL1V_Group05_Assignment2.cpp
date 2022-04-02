@@ -261,13 +261,9 @@ private:
 
 int main()
 {
-    Database* database = new Database[3]{ 
-        { "Charles", "Astronaut", 5, "Air" },
-        { "Henry", "Train Driver", 4, "Air" },
-        { "Ling", "Sailor", 0, "Air" },
-    };
+    // Sample Output of using new and delete keywords to initialize Database;
 
-    Database db_[3] = {
+    Database* database = new Database[3]{ 
         { "Charles", "Astronaut", 5, "Air" },
         { "Henry", "Train Driver", 4, "Air" },
         { "Ling", "Sailor", 0, "Air" },
@@ -278,6 +274,9 @@ int main()
         std::cout << "Can't initialize memory for database!\n";
         return 0;
     }
+
+    for (int i = 0; i != 3; i++)
+        database[i].Print();
 
     //database[0].AddAirData("Vincent", "Astronaut", 1);
 
