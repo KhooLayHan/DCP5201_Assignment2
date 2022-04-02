@@ -304,4 +304,6 @@ int main()
         
         delete[] database;
     }
+
+    console.Init();
 }
