@@ -48,7 +48,10 @@ public:
     const std::string SetPadding() // Assuming the length or size of the transport is not greater than max_size
     {
         static constexpr std::size_t max_size = 16;
-        
+
+        if (m_TransportationName == "")
+            m_TransportationName = "NONE";  
+
         if (m_TransportationName.size() >= max_size)
             return m_TransportationName;
         
