@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <array>
 #include <iostream>
 #include <string>
@@ -32,29 +33,27 @@ void Message(const std::string& message)
 class UserInput // Custom "Whatever" Design Pattern
 {
 public:
-    UserInput() = delete;
-    UserInput(const UserInput&) = delete;
-    ~UserInput() = delete;
-    void operator=(const UserInput&) = delete;
+    UserInput() {}
+    ~UserInput() {}
 
     const std::tuple<std::string, std::string, int> GetFullDetails()
     {
-        std::getline(std::cin >> std::ws, m_Username);
+        std::getline(std::cin >> std::ws, m_Username); // NOTE: Assuming for manager to press space after inserting a new value!
         std::getline(std::cin >> std::ws, m_Job);
         std::cin >> m_TransportCode;
 
         return { m_Username, m_Job, m_TransportCode };
     }
 
-    void GetUsernameDetails() { std::getline(std::cin >> std::ws, m_Username); }
-    void GetJobDetails() { std::getline(std::cin >> std::ws, m_Job); }
-    void GetTransportDetails() { std::cin >> m_TransportCode; }
+    const std::string GetUserDetails() { std::getline(std::cin >> std::ws, m_Username); return m_Username; }
+    const std::string GetJobDetails() { std::getline(std::cin >> std::ws, m_Job); return m_Username;}
+    const int GetTransportDetails() { std::cin >> m_TransportCode; return m_TransportCode; }
     
-    void RemoveUsernameDetails() { std::getline(std::cin >> std::ws, m_Username); }
-    void RemoveJobDetails() { std::getline(std::cin >> std::ws, m_Job); }
-    void RemoveTransportDetails() { std::cin >> m_TransportCode; }
+    const std::string RemoveUserDetails() { std::getline(std::cin >> std::ws, m_Username); return m_Username; }
+    const std::string RemoveJobDetails() { std::getline(std::cin >> std::ws, m_Job); return m_Username;}
+    const int RemoveTransportDetails() { std::cin >> m_TransportCode; return m_TransportCode; }
 
-    void ReplaceUsernameDetails() { std::getline(std::cin >> std::ws, m_Username); }
+    void ReplaceUserDetails() { std::getline(std::cin >> std::ws, m_Username); }
     void ReplaceJobDetails() { std::getline(std::cin >> std::ws, m_Job); }
     void ReplaceTransportDetails() { std::cin >> m_TransportCode; }
 
@@ -68,15 +67,12 @@ class Console
 {
 public:
     Console() {}
-
-
-
     ~Console() {}
 
     void OnStartUp()
     {
         std::string requesting_demo_or_not;
-        CONSOLE("Dear Manager, would you like to use the Demo version? (Recommended for first-time users) [Y/N]");
+        CONSOLE("Dear Manager, would you like to use the Demo version? (Recommended for first-time users) [Y/N] ");
 
 
     }
@@ -89,7 +85,7 @@ public:
             "AddUser", "RemoveUser", "ReplaceUser",
             "AddJob", "RemoveJob", "ReplaceJob",
             "AddAirTransport", "AddLandTransport", "AddWaterTransport", "RemoveTransport", "ReplaceTransport",
-            "RemoveAll", "Print"
+            "RemoveAll", "Print", "End"
         };
 
         auto result = std::find(instructions_list.begin(), instructions_list.end(), instruction); 
@@ -98,89 +94,94 @@ public:
             return instruction;
 
         CONSOLE("Failure to process given instruction.\n");
-        return "ERROR CODE: -1";   
+        return "-1"; // Error code for easier debugging
     }
 
     void RequestFirstInstruction()
     {
         std::string user_input;
-        CONSOLE("What is your next desired task?");
+        CONSOLE("What is your next desired task? ");
         std::cin >> user_input;
-        std::string message_code = Instructions(m_UserInput);
+        std::string message_code = Instructions(user_input);
 
-        do 
+        while (message_code == "-1")
         {
-            CONSOLE("Please try again.\nType carefully.");
-            std::cin >> m_UserInput;
-            message_code = Instructions(m_UserInput);
+            CONSOLE("Please try again. Type carefully. ");
+            std::cin >> user_input;
+            message_code = Instructions(user_input);
         }
-        while (message_code != "1");
 
         RequestSecondInstruction(message_code);
     } 
 
     void RequestSecondInstruction(const std::string& message)
     {
-        CONSOLE("Enter the data fields of the instruction " << message << ".\n");
-
         std::string username = "", job = "";
         int transport_code = 0;
 
         if (message == "AddAirData")    
         {
+            CONSOLE("Enter the data fields for the instruction " << message << ". ");
             const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
             m_Database.AddAirData(username, job, transport_code);
+            RequestFirstInstruction();
         }
         else if (message == "AddLandData")    
         {
+            CONSOLE("Enter the data fields for the instruction " << message << ". ");
             const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
             m_Database.AddLandData(username, job, transport_code);
+            RequestFirstInstruction();
         }
         else if (message == "AddWaterData")    
         {
+            CONSOLE("Enter the data fields for the instruction " << message << ". ");
             const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
             m_Database.AddWaterData(username, job, transport_code);
+            RequestFirstInstruction();
         }
-        if (message == "AddAirData")    
+        // if (message == "AddUser")    
+        // {
+        //     const std::string& username = m_UserInput.GetUserDetails();
+        //     m_Database.AddAirData(username, job, transport_code);
+        // }
+        // if (message == "AddAirData")    
+        // {
+        //     const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+        //     m_Database.AddAirData(username, job, transport_code);
+        // }
+        // if (message == "AddAirData")    
+        // {
+        //     const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+        //     m_Database.AddAirData(username, job, transport_code);
+        // }
+        // if (message == "AddAirData")    
+        // {
+        //     const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+        //     m_Database.AddAirData(username, job, transport_code);
+        // }
+        // if (message == "AddAirData")    
+        // {
+        //     const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+        //     m_Database.AddAirData(username, job, transport_code);
+        // }
+        // if (message == "AddAirData")    
+        // {
+        //     const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+        //     m_Database.AddAirData(username, job, transport_code);
+        // }
+        // if (message == "AddAirData")    
+        // {
+        //     const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+        //     m_Database.AddAirData(username, job, transport_code);
+        // }
+        else if (message == "Print")    
         {
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
-            m_Database.AddAirData(username, job, transport_code);
+            m_Database.Print();
         }
-        if (message == "AddAirData")    
-        {
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
-            m_Database.AddAirData(username, job, transport_code);
-        }
-        if (message == "AddAirData")    
-        {
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
-            m_Database.AddAirData(username, job, transport_code);
-        }
-        if (message == "AddAirData")    
-        {
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
-            m_Database.AddAirData(username, job, transport_code);
-        }
-        if (message == "AddAirData")    
-        {
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
-            m_Database.AddAirData(username, job, transport_code);
-        }
-        if (message == "AddAirData")    
-        {
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
-            m_Database.AddAirData(username, job, transport_code);
-        }
-        if (message == "AddAirData")    
-        {
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
-            m_Database.AddAirData(username, job, transport_code);
-        }
-        if (message == "AddAirData")    
-        {
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
-            m_Database.AddAirData(username, job, transport_code);
-        }
+
+        // If message == "End"
+
     }
 
     void OnShutDown()
@@ -192,8 +193,6 @@ public:
     void Init() 
     {
         OnStartUp();
-        PrintProgramHeader();
-        PrintProgramFooter();
         OnShutDown();
     }
 
@@ -206,6 +205,33 @@ private:
 
 int main()
 {
+    Database* database = new Database[3]{ 
+        { "Charles", "Astronaut", 5, "Air" },
+        { "Henry", "Train Driver", 4, "Air" },
+        { "Ling", "Sailor", 0, "Air" },
+    };
+
+    if(!database)
+    {
+        std::cout << "Can't initialize memory for database!\n";
+        return 0;
+    }
+
+    //database[0].AddAirData("Vincent", "Astronaut", 1);
+
+    // UserInput user_input;
+    // Console console;
+
+    // console.RequestFirstInstruction();
+
+    static constexpr int database_size = sizeof(database) / sizeof(database[0]);
+
+    for (int i = 0; i != 3; i++)
+    {
+        database[i].Print();
+
+    }
+
     // Message("What do you want to do next?\n");
     
     // std::string user_input;
@@ -315,8 +341,10 @@ int main()
 
 //     // job.GetJobFromListing("Taxi Driver");
 
-    PrintProgramFooter();
+    //PrintProgramFooter();
 
 //    exit(0);
 
+    delete[] database;
+    // std::cin.get();
 }
