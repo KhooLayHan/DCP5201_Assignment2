@@ -11,7 +11,7 @@
     This program uses C++17.
 */
 
-void PrintProgramHeader()
+void PrintTableHeader()
 {
     std::cout << "\n      JOBS MANAGEMENT SYSTEM (ALPHA BUILD v0.01)\n";
     DisplayLines('-', 54);                          
@@ -19,7 +19,7 @@ void PrintProgramHeader()
     DisplayLines('-', 54);
 }
 
-void PrintProgramFooter()
+void PrintTableFooter()
 {
     DisplayLines('-', 54);
 }
@@ -226,7 +226,7 @@ public:
         }
         else if (message == "Print") // For Print() function ....
         {
-            PrintProgramHeader();
+            PrintTableHeader();
 
             if (index >= 0 && index <= 9)
                 m_Database[index].Print(); // If index is within a range, program will only print at that index
@@ -236,15 +236,15 @@ public:
                     m_Database[i].Print();  
             }
         
-            PrintProgramFooter();
+            PrintTableFooter();
         }
 
-        if (message == "End") // Index doesn't matter, just type "End"
+        if (message == "End") // Index doesn't matter, just type "End" and a random number...
         {
-            PrintProgramHeader();
+            PrintTableHeader();
             for (int i = 0; i != database_size; i++) // Prints again but with finalized table
                 m_Database[i].Print(); 
-            PrintProgramFooter();
+            PrintTableFooter();
             
             OnShutDown();
         }
@@ -284,8 +284,8 @@ int main()
     UserInput user_input;
     Console console;
 
-    PrintProgramHeader();
-    PrintProgramFooter();
+    PrintTableHeader();
+    PrintTableFooter();
 
     //console.Init();
 
