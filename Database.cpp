@@ -30,25 +30,9 @@ class Database
 public:
     Database() 
     {
-        // std::cout << "Database Constructor\n";
         if (!m_Data.empty())
             m_Data.clear();
     };
-
-    // Database(const User& user, const std::string& job, const AirTransport& air_transport)
-    //     : m_User{ user }, m_Job{ job }, m_AirTransport{ air_transport }
-    // {
-    // }
-        
-    // Database(const User& User, const Job& job, const AirTransport& air_transport)
-    //     : m_User{ User }, m_Job{ job }, m_AirTransport{ static_cast<AirTransport::Air>(air_transport) }
-    // {}
-
-    // Database(const std::string& User, const std::string& job, AirTransport air)
-    //     : m_User{ User }, m_Job{ job }, m_AirTransport{ air }
-    // {
-    //     m_Data.push_back({ m_User, m_Job, m_AirTransport });
-    // }
 
     Database(const std::string& user, const std::string& job, int id, std::string is_transport_type)
         : m_User{ user }, m_TransportType{ is_transport_type }
@@ -73,22 +57,7 @@ public:
         }
     }
 
-    // Database(const std::string& User, const std::string& job, int land_id)
-    //     : m_User{ User }, m_Job{ job }, m_LandTransport{ land_id }
-    // {
-    //     m_Data.push_back({ m_User, m_Job, m_LandTransport });
-    // }
-
-    // Database(const std::string& User, const std::string& job, int water_id)
-    //     : m_User{ User }, m_Job{ job }, m_WaterTransport{ water_id }
-    // {
-    //     m_Data.push_back({ m_User, m_Job, m_WaterTransport });
-    // }
-
-    ~Database() 
-    {
-        // std::cout << "Database Destructor\n"; 
-    }
+    ~Database() {}
 
     void AddAirData(const std::string& user, const std::string& job, int air_id)
     {
@@ -241,14 +210,6 @@ public:
             return transport.SetPadding();;
         }
     }
-
-    // static Database& ClearAll() 
-    // {
-    //     for (int i = 0; i != 10; i++)
-    //     {}
-    // }
-
-    const std::string& GetTransportType() const { return m_TransportType; }
 
 private:
     User m_User;
