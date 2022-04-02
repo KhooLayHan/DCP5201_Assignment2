@@ -24,11 +24,6 @@ void PrintTableFooter()
     DisplayLines('-', 52);
 }
 
-void Message(const std::string& message)
-{
-    std::cout << message << "\n";
-}
-
 class UserInput // Custom "Whatever" Design Pattern
 {
 public:
@@ -45,7 +40,7 @@ public:
     }
 
     const std::string GetUserDetails() { std::getline(std::cin >> std::ws, m_Username); return m_Username; }
-    const std::string GetJobDetails() { std::getline(std::cin >> std::ws, m_Job); return m_Job;}
+    const std::string GetJobDetails() { std::getline(std::cin >> std::ws, m_Job); return m_Job; }
     const int GetTransportDetails() { std::cin >> m_TransportCode; return m_TransportCode; }
     
 private:
