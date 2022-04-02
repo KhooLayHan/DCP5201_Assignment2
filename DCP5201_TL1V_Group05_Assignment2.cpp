@@ -13,15 +13,15 @@
 
 void PrintTableHeader()
 {
-    std::cout << "\n      JOBS MANAGEMENT SYSTEM (ALPHA BUILD v0.01)\n";
-    DisplayLines('-', 54);                          
-    std::cout << "|  ID  | Username |      Job      |  Transportation  |\n";
-    DisplayLines('-', 54);
+    std::cout << "\n     JOBS MANAGEMENT SYSTEM (ALPHA BUILD v0.01)\n";
+    DisplayLines('-', 52);                          
+    std::cout << "| ID | Username |      Job      |  Transportation  |\n";
+    DisplayLines('-', 52);
 }
 
 void PrintTableFooter()
 {
-    DisplayLines('-', 54);
+    DisplayLines('-', 52);
 }
 
 void Message(const std::string& message)
@@ -265,16 +265,17 @@ int main()
     Console console;
 
     unsigned int select;
-    std::cout << "Please select 0 if you want a non-interactive program, or 1 if you want CONSOLE for company.\n";
+    std::cout << "Please select 0 if you want a non-interactive program, or 1 if you want CONSOLE for company. ";
     std::cin >> select;
 
     if (select == 0)
     {
         // Sample Output of using new and delete keywords to initialize Database (Not through CONSOLE demo version) 
+        static constexpr int max_size = 6;
 
-        Database* database = new Database[6]{ 
-            { "Charles", "Astronaut", 6, "Air" },
-            { "Henry", "Train Driver", 5, "Land" },
+        Database* database = new Database[max_size]{ 
+            { "Charles", "Astronaut", 5, "Air" },
+            { "Henry", "Train Driver", 4, "Land" },
             { "Ling", "Sailor", 0, "Water" },
         };
 
@@ -285,15 +286,22 @@ int main()
         }
 
         PrintTableHeader();
-        for (int i = 0; i != 3; i++)
+        for (int i = 0; i != max_size; i++)
             database[i].Print();
         PrintTableFooter();
 
         database[3].AddAirData("Vincent", "Pilot", 0);
-        database[4].AddWaterData("Vincent", "Truck Driver", 2);
+        database[4].AddWaterData("Soo", "Sailor", 2);
         
         database[0].RemoveUser();
         database[1].RemoveJob();
         database[2].RemoveTransport();
+
+        PrintTableHeader();
+        for (int i = 0; i != max_size; i++)
+            database[i].Print();
+        PrintTableFooter();
+        
+        delete[] database;
     }
 }
