@@ -38,11 +38,9 @@ public:
         {
             if (jobs_listing[i] == name)
                 return m_Job;
-            
-            m_Job = "ERROR";
         }
 
-        return m_Job;
+        return m_Job = "ERROR";
     }
 
     const std::string& GetJob() // Assuming the length or size of the job is not greater than max_size
