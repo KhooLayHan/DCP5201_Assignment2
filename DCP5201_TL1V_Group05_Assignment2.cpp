@@ -256,6 +256,9 @@ private:
 
 int main()
 {
+    User user;
+    Job job;
+    Transportation transportation;
     UserInput user_input;
     Console console;
 
