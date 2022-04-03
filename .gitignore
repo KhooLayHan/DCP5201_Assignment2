@@ -12,3 +12,6 @@
 
 # Debug Files
 *.pdb
+
+# Text Files
+*.txt
