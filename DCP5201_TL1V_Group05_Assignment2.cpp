@@ -5,7 +5,6 @@
     Thank you for your cooperation.
 */
 
-
 #include <algorithm>
 #include <array>
 #include <iostream>
