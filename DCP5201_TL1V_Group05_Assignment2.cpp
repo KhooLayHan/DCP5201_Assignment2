@@ -1,16 +1,16 @@
-/*
-    Dear Managers,
-    Features such as std::variant and std::string_view are only C++17 compatible.
-    So, please use a more modern Integrated Development Environment (IDE) or please set your C++ standard to C++17.
-    Thank you for your cooperation.
-*/
-
 #include <algorithm>
 #include <array>
 #include <iostream>
 #include <string>
 
 #include "Database.cpp"
+
+/*
+    Dear Managers,
+    Features such as std::variant and std::string_view are only C++17 compatible.
+    So, please use a more modern Integrated Development Environment (IDE) or please set your C++ standard to C++17.
+    Thank you for your cooperation.
+*/
 
 #define CONSOLE(x) std::cout << "[CONSOLE] " << x; // Using a macro to print the message from CONSOLE
 
