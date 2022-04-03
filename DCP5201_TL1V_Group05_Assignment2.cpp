@@ -5,10 +5,13 @@
 
 #include "Database.cpp"
 
-#define CONSOLE(x) std::cout << "[CONSOLE] " << x;
+#define CONSOLE(x) std::cout << "[CONSOLE] " << x; // Using a macro to print the message from CONSOLE
 
 /*
-    This program uses C++17.
+    Dear Managers,
+    Features such as std::variant and std::string_view are only C++17 compatible.
+    So, please use a more modern Integrated Development Environment (IDE) or please set your C++ standard to C++17.
+    Thank you for your cooperation.
 */
 
 void PrintTableHeader()
@@ -24,7 +27,7 @@ void PrintTableFooter()
     DisplayLines('-', 52);
 }
 
-class UserInput // Custom "Whatever" Design Pattern
+class UserInput // Custom "Whatever" Design Pattern, mainly used to get the various user input methods for class Console
 {
 public:
     UserInput() {}
@@ -36,7 +39,7 @@ public:
         std::getline(std::cin >> std::ws, m_Job);
         std::cin >> m_TransportCode;
 
-        return { m_Username, m_Job, m_TransportCode };
+        return { m_Username, m_Job, m_TransportCode }; // Returns as a tuple
     }
 
     const std::string GetUserDetails() { std::getline(std::cin >> std::ws, m_Username); return m_Username; }
@@ -49,7 +52,7 @@ private:
     int m_TransportCode;
 };
 
-class Console
+class Console // The brains for the interactive demo session of the code.
 {
 public:
     Console() {}
@@ -67,14 +70,14 @@ public:
         {
             CONSOLE("Initializing Demo session...\n");
             CONSOLE("Demo session enabled\n");
-            RequestFirstInstruction();
+            RequestFirstInstruction(); // This is where CONSOLE will request for next first task
         }
 
-        CONSOLE("OK. Enabling Live session... Bye!");
+        CONSOLE("OK. Enabling Live session... Bye!"); // If manager selected 'N' or 'n', the program will just exits 
         exit(EXIT_SUCCESS);
     }
 
-    void OnShutDown()
+    void OnShutDown() // Terminates the program and exits
     {
         CONSOLE("Thank you for using the Jobs Management System.\n");
         CONSOLE("Exiting... Demo session.\n");
@@ -83,12 +86,12 @@ public:
         exit(EXIT_SUCCESS);
     }
 
-    void Init() 
+    void Init() // Will be called in the main() function
     {
         OnStartUp();
     }
 
-    static std::string Instructions(const std::string& instruction)
+    static std::string Instructions(const std::string& instruction) // Possible list of instructions for CONSOLE
     {
         static constexpr std::array instructions_list = {
             "AddAirData", "AddLandData", "AddWaterData",
@@ -98,9 +101,9 @@ public:
             "RemoveAll", "Print", "End"
         };
 
-        auto result = std::find(instructions_list.begin(), instructions_list.end(), instruction); 
+        auto result = std::find(instructions_list.begin(), instructions_list.end(), instruction); // Returns an iterator
 
-        if (result != std::end(instructions_list))
+        if (result != std::end(instructions_list)) // If result is at the end and still can't find the user instruction, CONSOLE prints the error statements 
             return instruction;
 
         CONSOLE("Failure to process given instruction.\n");
@@ -112,22 +115,22 @@ public:
         int id; // NOTE: The Database can only stored 10 elements (the size is hard-coded).
         std::string user_input;
         
-        CONSOLE("What is your next desired task? ");
+        CONSOLE("What is your next desired task? "); // First requests the instruction and the specified index
         std::cin >> user_input >> id;
 
         std::string message_code = Instructions(user_input);
 
         while (message_code == "-1")
         {
-            CONSOLE("Please try again. Type carefully. ");
+            CONSOLE("Please try again. Type carefully. "); // If message_code equals to -1, will prompt the manager to try again
             std::cin >> user_input >> id;
             message_code = Instructions(user_input);
         }
 
-        RequestSecondInstruction(message_code, id);
+        RequestSecondInstruction(message_code, id); // If successful, move on to next instruction
     } 
 
-    void RequestSecondInstruction(const std::string& message, int index = -1)
+    void RequestSecondInstruction(const std::string& message, int index = -1) // Has the same features from Database class
     {
         std::string username = "", job = "";
         int transport_code = 0;
@@ -135,13 +138,13 @@ public:
         if (message == "AddAirData")    
         {
             CONSOLE("Enter the data fields for the instruction " << message << ". ");
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails(); // Since it returns a tuple, we use structured bindings to get each element
             m_Database[index].AddAirData(username, job, transport_code);
         }
         else if (message == "AddLandData")    
         {
             CONSOLE("Enter the data fields for the instruction " << message << ". ");
-            const auto [username, job, transport_code] = m_UserInput.GetFullDetails();
+            const auto [username, job, transport_code] = m_UserInput.GetFullDetails(); // The same goes for AddLandData and AddWaterData
             m_Database[index].AddLandData(username, job, transport_code);
         }
         else if (message == "AddWaterData")    
@@ -153,34 +156,34 @@ public:
         else if (message == "AddUser")    
         {
             CONSOLE("Enter the user for the instruction " << message << ". ");
-            const std::string& username = m_UserInput.GetUserDetails();
+            const std::string& username = m_UserInput.GetUserDetails(); // Get the user input for user
             m_Database[index].AddUser(username);
         }
         else if (message == "AddJob")    
         {
             CONSOLE("Enter the job for the instruction " << message << ". ");
-            const std::string& job = m_UserInput.GetJobDetails();
+            const std::string& job = m_UserInput.GetJobDetails(); // Get the job input for job
             m_Database[index].AddJob(job);
         }
         else if (message == "AddAirTransport")    
         {
             CONSOLE("Enter the transportation for the instruction " << message << ". ");
-            const int& transport_code = m_UserInput.GetTransportDetails();
+            const int& transport_code = m_UserInput.GetTransportDetails(); // Get the air transport input for AirTransport
             m_Database[index].AddAirTransport(transport_code);
         }
         else if (message == "AddLandTransport")    
         {
             CONSOLE("Enter the transportation for the instruction " << message << ". ");
-            const int& transport_code = m_UserInput.GetTransportDetails();
+            const int& transport_code = m_UserInput.GetTransportDetails(); // Get the land transport input for LandTransport
             m_Database[index].AddLandTransport(transport_code);
         }
         else if (message == "AddWaterTransport")    
         {
             CONSOLE("Enter the transportation for the instruction " << message << ". ");
-            const int& transport_code = m_UserInput.GetTransportDetails();
+            const int& transport_code = m_UserInput.GetTransportDetails(); // Get the water transport input for WaterTransport
             m_Database[index].AddWaterTransport(transport_code);
         }
-        else if (message == "RemoveAll")    
+        else if (message == "RemoveAll") // Just some remove the element at the index functions, while RemoveAll removes all elements
         {
             CONSOLE("Removing all elements from index " << index << " for instruction " << message << ".\n");
             m_Database[index].RemoveAll();
@@ -200,7 +203,7 @@ public:
             CONSOLE("Removing transportation from index " << index << " for instruction " << message << ".\n");
             m_Database[index].RemoveTransport();
         }
-        else if (message == "ReplaceUser")    
+        else if (message == "ReplaceUser") // Again, replacing the old data with the new data
         {
             CONSOLE("Enter the user at index " << index << " for instruction " << message << ". ");
             const std::string& username = m_UserInput.GetUserDetails();
@@ -240,22 +243,22 @@ public:
                 m_Database[i].Print(); 
             PrintTableFooter();
             
-            OnShutDown();
+            OnShutDown(); // Requests Shutdown
         }
 
         RequestFirstInstruction();
     }
 
 private:
-    static constexpr int database_size = 9; // Hardcoded value for max database size
+    static constexpr int database_size = 10; // Hardcoded value for max database size
 
-    Database m_Database[database_size];
+    Database m_Database[database_size]; // Declaring m_Database with static array size of 10 
     UserInput m_UserInput;
 };
 
 int main()
 {
-    User user;
+    User user; // Calling the constructors of each class
     Job job;
     Transportation transportation;
     UserInput user_input;
@@ -276,14 +279,14 @@ int main()
             { "Ling", "Sailor", 0, "Water" },
         };
 
-        if(!database)
+        if (!database) // Ensure that the program does not crash and terminate
         {
             std::cout << "Can't initialize memory for database!\n";
             return 0;
         }
 
         PrintTableHeader();
-        for (int i = 0; i != max_size; i++)
+        for (int i = 0; i != max_size; i++) // Prints the table with default arguments first
             database[i].Print();
         PrintTableFooter();
 
@@ -295,7 +298,7 @@ int main()
         database[2].RemoveTransport();
 
         PrintTableHeader();
-        for (int i = 0; i != max_size; i++)
+        for (int i = 0; i != max_size; i++) // Prints the table with the modify arguments
             database[i].Print();
         PrintTableFooter();
         
@@ -303,6 +306,6 @@ int main()
     }
     else 
     {
-        console.Init();
+        console.Init(); // As mentioned above, this is how we call upon CONSOLE to help us.
     }
 }
