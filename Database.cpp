@@ -187,6 +187,7 @@ public:
     const std::string& GetUserAtID(int id = 0) { return m_Data[id].m_User.GetName(); } // Getter functions 
     const std::string& GetJobAtID(int id = 0) { return m_Data[id].m_Job.GetJob(); }
 
+    // This function is where we utlised the friend and operator overloading function implemented in class Transportation
     const std::string GetTransportAtID(int id) 
     {
         if (m_TransportType == "") // If error-checker when the type is not available 
