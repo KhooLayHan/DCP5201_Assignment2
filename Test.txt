@@ -127,3 +127,10 @@
 
     delete[] database;
     // std::cin.get();
+
+
+    "AddAirData", "AddLandData", "AddWaterData",
+            "AddUser", "RemoveUser", "ReplaceUser",
+            "AddJob", "RemoveJob", "ReplaceJob",
+            "AddAirTransport", "AddLandTransport", "AddWaterTransport", "RemoveTransport", "ReplaceTransport",
+            "RemoveAll", "Print", "End"
