@@ -4,12 +4,12 @@
 class IDGenerator // Singleton Design Pattern
 {
 public:
-    IDGenerator(const IDGenerator&) = delete;
-    void operator=(const IDGenerator&) = delete;
+    IDGenerator(const IDGenerator&) = delete; 
+    void operator=(const IDGenerator&) = delete; 
 
-    static IDGenerator& GetID()
+    static IDGenerator& GetID() // This functions acts as the global access point that calls the GenerateIDToStringImpl() method
     {
-        static IDGenerator s_ID;
+        static IDGenerator s_ID; // Static instance so that objects are only created once.
         return s_ID;
     }
 
@@ -25,16 +25,16 @@ private:
 
     std::string GenerateIDToStringImpl()
     {
-        std::stringstream string_stream;
+        std::stringstream string_stream; // Returning m_ID to a stringstream since it's not possible to cast an int to string
         string_stream << GenerateIDImpl();
         string_stream >> m_StringID;
 
-        if (m_StringID.size() == 1)
+        if (m_StringID.size() == 1) // Append m_StringID with extra padding as well for cleaner output table 
             return m_StringID += " ";
         else
             return m_StringID;
     }
 
-    IDGenerator() {};
+    IDGenerator() {}; // Constructors and destructors are made private to avoid creating new objects.
     ~IDGenerator() {};
 };
