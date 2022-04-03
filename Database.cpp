@@ -176,7 +176,7 @@ public:
     {
         for (int i = 0; i != m_Data.size(); i++)
         {
-            std::cout << "| " << IDGenerator::GenerateID() << "  | "
+            std::cout << "| " << IDGenerator::GenerateIDToString() << "  | "
                 << GetUserAtID(i) << " | " << GetJobAtID(i) << " | " 
                 << GetTransportAtID(i) << " |\n";
         }
